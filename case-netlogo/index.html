@@ -8,7 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>
 <body>
   <header class="site-header">
@@ -17,9 +20,9 @@
       <nav>
         <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="work.html" class="active">Portfolio</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/work/" class="active">Portfolio</a></li>
         </ul>
       </nav>
     </div>
@@ -27,7 +30,7 @@
 
   <section class="cs-header section-tight">
     <div class="container">
-      <a href="work.html" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
+      <a href="/work/" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
       <div style="max-width:760px;margin-top:14px;">
         <span class="eyebrow">Virtual Experiment</span>
         <h1>Particles World: Thermal Mix &amp; Evaporation</h1>
@@ -54,7 +57,7 @@
             <p>A container is divided into four zones — red, yellow, green, and blue. Sliders control the temperature of the red, yellow, and green zones directly, while the blue zone is governed by room temperature. The model lets students explore how changing a zone's temperature changes the behavior of the particles inside it.</p>
           </div>
           <figure class="cs-figure">
-            <div class="img-wrap"><img src="images/netlogo/thermal-mix-interface.avif" alt="" loading="lazy" /></div>
+            <div class="img-wrap"><img src="/images/netlogo/thermal-mix-interface.avif" alt="" loading="lazy" /></div>
             <figcaption>The Thermal Mix interface: a particle-count slider and a temperature slider for each of the red, yellow, and green zones.</figcaption>
           </figure>
         </div>
@@ -85,13 +88,13 @@
             <p><code>move-particles</code> updates each particle's position with a velocity-Verlet integrator and bounces it off the container walls; <code>color-particles</code> then recolors it by speed — red above 1.5, green in the mid-range, blue at or below room-temperature speed — so a particle's temperature reads instantly as color. As the sliders are pushed toward their extremes (red-temp and green-temp at 100, yellow-temp at 0), more red particles collect in the heated zones and more blue particles settle into the room-temperature zone.</p>
           </div>
           <figure class="cs-figure">
-            <div class="img-wrap"><img src="images/netlogo/thermal-mix-code.avif" alt="" loading="lazy" /></div>
+            <div class="img-wrap"><img src="/images/netlogo/thermal-mix-code.avif" alt="" loading="lazy" /></div>
             <figcaption>The move-particles and color-particles procedures, in NetLogo's Code tab.</figcaption>
           </figure>
         </div>
 
         <figure class="cs-figure">
-          <div class="img-wrap"><img src="images/netlogo/thermal-mix-demo.gif" alt="" loading="lazy" /></div>
+          <div class="img-wrap"><img src="/images/netlogo/thermal-mix-demo.gif" alt="" loading="lazy" /></div>
           <figcaption>Live run, red-temp and green-temp both at 100: hot (red) particles concentrate in the heated zones while the room-temperature (blue) zone stays cool.</figcaption>
         </figure>
 
@@ -102,7 +105,7 @@
             <p>This model shows water molecules transitioning from liquid to gas under varying temperature conditions. Adjustable temperature and firepower sliders, plus switches to open or close each container's lid, let students experiment directly with the rate and mechanics of evaporation.</p>
           </div>
           <figure class="cs-figure">
-            <div class="img-wrap"><img src="images/netlogo/evaporation-interface.avif" alt="" loading="lazy" /></div>
+            <div class="img-wrap"><img src="/images/netlogo/evaporation-interface.avif" alt="" loading="lazy" /></div>
             <figcaption>The Evaporation interface: room-temperature and firepower sliders, a particles-die? toggle, and a lid-open switch for each container.</figcaption>
           </figure>
         </div>
@@ -113,13 +116,13 @@
             <p><code>setup-firepower</code> draws a fire icon beneath the right-hand container, and <code>turn-on-fire</code> scales that flame with the firepower slider to signal added heat. <code>lid-control</code> opens or closes each container by toggling whether its top patches act as a solid wall, letting particles escape into open air. With the right lid open and firepower turned up, particles clearly evaporate out of that container faster than in the closed, unheated left container; if <code>particles-die?</code> is off, escaped particles keep moving and can drift into the open left container, changing its temperature.</p>
           </div>
           <figure class="cs-figure">
-            <div class="img-wrap"><img src="images/netlogo/evaporation-code.avif" alt="" loading="lazy" /></div>
+            <div class="img-wrap"><img src="/images/netlogo/evaporation-code.avif" alt="" loading="lazy" /></div>
             <figcaption>The setup-firepower, lid-control, and turn-on-fire procedures.</figcaption>
           </figure>
         </div>
 
         <figure class="cs-figure">
-          <div class="img-wrap"><img src="images/netlogo/evaporation-demo.gif" alt="" loading="lazy" /></div>
+          <div class="img-wrap"><img src="/images/netlogo/evaporation-demo.gif" alt="" loading="lazy" /></div>
           <figcaption>Live run, right lid open with firepower turned up: particles evaporate rapidly into the air while the closed, unheated left container stays unchanged.</figcaption>
         </figure>
 
@@ -133,8 +136,8 @@
         <p style="font-size:0.92rem;">Kelter, J. and Wilensky, U. (2022). NetLogo Molecular Dynamics Lennard-Jones model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.<br>Wilensky, U. (1999). NetLogo. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</p>
 
         <div class="case-nav">
-          <a href="work.html" class="btn btn-secondary">← All projects</a>
-          <a href="about.html#connect" class="btn btn-primary">Get in touch →</a>
+          <a href="/work/" class="btn btn-secondary">← All projects</a>
+          <a href="/about/#connect" class="btn btn-primary">Get in touch →</a>
         </div>
       </div>
     </div>
@@ -150,7 +153,7 @@
         <div class="footer-cols">
           <div class="footer-col">
             <h4>Explore</h4>
-            <a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Portfolio</a>
+            <a href="/">Home</a><a href="/about/">About</a><a href="/work/">Portfolio</a>
           </div>
           <div class="footer-col">
             <h4>Connect</h4>
@@ -161,6 +164,6 @@
       <div class="footer-bottom"><span>© 2026 Janet Xie. All rights reserved.</span></div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
