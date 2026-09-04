@@ -127,25 +127,6 @@
     });
   }
 
-  // ---------- Contact form ----------
-  var form = document.querySelector("#contact-form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var status = document.querySelector("#form-status");
-      var submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        var rect = submitBtn.getBoundingClientRect();
-        burstConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      }
-      if (status) {
-        status.textContent = "Thanks! This demo form isn't wired to a backend yet — email me directly and I'll reply within a day.";
-        status.style.color = "var(--gold-text)";
-      }
-      form.reset();
-    });
-  }
-
   // ---------- Magnetic buttons: fine pointer only ----------
   if (canHover && !reducedMotion) {
     document.querySelectorAll(".btn").forEach(function (btn) {
