@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Wix Content/oli"
+		},
+		{
+			"path": "../Wix Content/tutor"
+		},
+		{
+			"path": "../Wix Content/lego"
+		},
+		{
+			"path": "../Wix Content/braking barriers"
+		},
+		{
+			"path": "../Wix Content/thumbnail"
+		}
+	],
+	"settings": {}
+}

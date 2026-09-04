@@ -1,0 +1,736 @@
+<title>The Hats I Wear</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --cream:      #FBF8F2;
+    --cream-glow: #F3D998;
+    --surface:    #FFFDF8;
+    --ink:        #211D17;
+    --ink-soft:   #665C4C;
+    --gold:       #F0B400;
+    --gold-deep:  #A97918;
+    --gold-text:  #8C5E0B;
+    --gold-wash:  #FBEBC7;
+    --yellow:      #FFCB3D;
+    --yellow-soft: #FFF3D2;
+    --line:       #ECE3D0;
+
+    --font-display: "Space Grotesk", "Arial Black", sans-serif;
+    --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --skin:  #D9A876;
+    --hair:  #3B2A22;
+    --shirt: #3E4650;
+  }
+
+  *{ box-sizing:border-box; }
+  html{
+    margin:0; padding:0; height:100%;
+    /* Ties every rem-based size below to this iframe's own width (100vw here
+       is the iframe's viewport, not the host page's) so the whole widget
+       scales to fit whatever box it's dropped into instead of clipping.
+       The coefficient is calibrated against the *height* this content
+       actually needs at 16px/1rem (~440px, see the stack of rem sizes
+       below), not an arbitrary width — since the wrapper is a square but
+       this content is portrait-shaped (tall character + bubble beneath
+       it), fitting width alone would still overflow height at every
+       scale. Keep this in sync if the layout below changes height. */
+    font-size:clamp(12px, 3.6vw, 18px);
+  }
+  body{ margin:0; padding:0; height:100%; overflow:hidden; }
+  body{
+    /* Transparent on purpose — this sits embedded in the homepage, so only
+       the photo card itself should paint a background, not this whole box. */
+    background:transparent;
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    /* Extra top padding gives the flying-hat animation room to arc upward
+       within this document's own bounds — it's position:fixed relative to
+       this iframe's viewport, so if it arcs above y=0 here it's simply
+       outside the iframe's rectangle on the host page and gets clipped,
+       no matter what overflow is set to. */
+    padding:3.5rem 0.75rem 0.75rem;
+  }
+
+  .stage{ width:100%; max-width:27.5rem; }
+
+  /* ---------- shared reveal-on-load animation, matching the host site ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(1.125rem) scale(0.99);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- scene: a framed photo with hats perched on its edge ---------- */
+  .scene{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0.25rem 0 0.125rem;
+  }
+
+  .photo-frame{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:1.375rem;
+    padding:0.625rem 2rem;
+    box-shadow:0 14px 30px -10px rgba(28,23,18,.22);
+  }
+
+  .character-wrap{
+    position:relative;
+    width:13.125rem;
+    height:17.625rem;
+  }
+  .character-art{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+  }
+
+  /* A faint 45° light band masked to the character art's own silhouette
+     (via its PNG alpha channel), so it only ever lights up her actual
+     opaque pixels — nothing painted here should ever be visible over the
+     card's background. One element, one animated property (the gradient's
+     own position along a single axis), so there's exactly one clean pass. */
+  .character-shine{
+    position:absolute; inset:0;
+    pointer-events:none;
+    -webkit-mask-image:url('images/hats/character.png');
+    mask-image:url('images/hats/character.png');
+    -webkit-mask-size:100% 100%;
+    mask-size:100% 100%;
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    background:linear-gradient(45deg, transparent 46%, rgba(255,255,255,.28) 50%, transparent 54%);
+    background-repeat:no-repeat;
+    background-size:320% 320%;
+    background-position:-110% 0%;
+    opacity:0;
+  }
+  .character-shine.is-shining{
+    animation:shineSweep 1s ease;
+  }
+  @keyframes shineSweep{
+    0%{ opacity:0; background-position:-110% 0%; }
+    20%{ opacity:1; }
+    70%{ opacity:1; }
+    100%{ opacity:0; background-position:110% 0%; }
+  }
+
+  .worn-hat{
+    position:absolute;
+    top:2%; left:0; right:0;
+    height:30%;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    pointer-events:none;
+    z-index:3;
+  }
+  .worn-hat img{
+    display:block;
+    width:auto;
+    filter:drop-shadow(0 6px 8px rgba(28,23,18,.18));
+  }
+  .worn-hat img.landing{
+    animation:landBounce .38s cubic-bezier(.33,1.6,.6,1) both;
+  }
+  @keyframes landBounce{
+    0%{ transform:scale(.7) rotate(-6deg); opacity:0; }
+    55%{ transform:scale(1.14) rotate(4deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+
+  /* ---------- hat stack: perched straddling the frame's right edge, half on
+     the card and half over the page background behind it ---------- */
+  .hat-stack{
+    position:absolute;
+    top:50%;
+    right:0;
+    transform:translate(75%, -50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.625rem;
+    z-index:6;
+  }
+  .hat-btn{
+    background:none;
+    border:none;
+    padding:0.125rem;
+    margin:0;
+    cursor:pointer;
+    line-height:0;
+    transform:rotate(var(--tilt, 0deg));
+    /* Resting hats sit well dimmed; the selected one (below) is the only
+       one at full strength, so the choice reads clearly at a glance. */
+    opacity:.45;
+    transition:transform .22s cubic-bezier(.2,.8,.3,1), opacity .22s ease;
+  }
+  .hat-btn img{
+    display:block;
+    height:2.75rem; width:auto;
+    filter:drop-shadow(0 6px 10px rgba(28,23,18,.35));
+  }
+  .hat-btn--stack img{
+    /* STACK.png is a wide wordmark (~3.24:1), not a squarish hat icon —
+       sizing it by height alone (like the rule above) would blow its
+       rendered width out to ~6.8rem, nearly double the other icons'
+       ~3.6rem, dragging the whole stack (and its shadow) past the frame
+       edge. Cap by height low enough that width lands in the same
+       ballpark as the hat icons instead. */
+    height:1.15rem;
+  }
+  .hat-btn:hover{ opacity:.8; transform:scale(1.12) rotate(var(--tilt, 0deg)); }
+  .hat-btn:focus-visible{ outline:2px solid var(--gold-deep); outline-offset:3px; opacity:1; }
+  .hat-btn[aria-pressed="true"]{
+    opacity:1;
+    transform:scale(1.35) rotate(0deg);
+    z-index:5;
+  }
+  .hat-btn[aria-pressed="true"]:hover{ transform:scale(1.35) rotate(0deg); }
+
+  /* Pre-click nudge toward the first hat (Teacher) — a "tap here" ring that
+     pings outward from the icon on repeat, at full opacity so it reads
+     clearly against the other four dimmed hats. Removed for good the
+     moment any hat is picked. */
+  .hat-btn--indicator{
+    position:relative;
+    opacity:1;
+  }
+  .hat-btn--indicator::after{
+    content:"";
+    position:absolute;
+    top:45%; left:50%;
+    width:2.75rem; height:2.75rem;
+    margin:-1.375rem 0 0 -1.375rem;
+    border:3px solid var(--gold-deep);
+    border-radius:50%;
+    box-shadow:0 0 0.75rem 0.1rem rgba(255,203,61,.85);
+    pointer-events:none;
+    animation:hatIndicatorPing 1.6s ease-out infinite;
+  }
+  @keyframes hatIndicatorPing{
+    0%{ transform:scale(.55); opacity:1; }
+    75%{ transform:scale(1.7); opacity:0; }
+    100%{ transform:scale(1.7); opacity:0; }
+  }
+
+  .flying-hat{
+    position:fixed;
+    pointer-events:none;
+    z-index:999;
+    filter:drop-shadow(0 8px 10px rgba(28,23,18,.25));
+  }
+
+  /* Confetti burst for the STACK button — same mechanic as the host site's
+     own easter egg, reimplemented locally since this document can't reach
+     into the parent page's closured JS across the iframe boundary. */
+  .confetti-dot{
+    position:fixed;
+    top:0; left:0;
+    width:0.5rem; height:0.5rem;
+    border-radius:0.2rem;
+    pointer-events:none;
+    z-index:999;
+    animation:confettiBurst .7s ease-out forwards;
+  }
+  @keyframes confettiBurst{
+    0%{ transform:translate(-50%,-50%) rotate(0deg) scale(1); opacity:1; }
+    100%{ transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--spin)) scale(.4); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .worn-hat img.landing{ animation:none; }
+    .hat-btn{ transition:none; }
+    .hat-btn--indicator::after{ animation:none; opacity:.9; }
+  }
+
+  /* ---------- bubble: a two-tone card — solid header band for the role,
+     lighter body below for the description. Fixed height so switching
+     hats never shifts the photo above it. ---------- */
+  /* Fixed-footprint slot holding whichever of the two faces (card or plain
+     line) is currently shown — sized once, here, so swapping between them
+     never changes the stage's total height and shifts the character above
+     it. Both children are absolutely stacked inside it; only one is ever
+     visible via the `hidden` attribute. */
+  .card-slot{
+    position:relative;
+    margin:0.8rem 0 0 1rem;
+    height:7rem;
+  }
+
+  .bubble{
+    position:absolute;
+    inset:0;
+    margin:0;
+    border:2px solid var(--yellow);
+    border-radius:1rem;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(33,29,23,.07);
+    transition:transform .3s var(--bounce, ease), box-shadow .25s ease, opacity .22s ease;
+  }
+  .bubble:hover{ transform:translateY(-3px); box-shadow:0 10px 28px -8px rgba(33,29,23,.15); }
+
+  /* Content fades/eases in place instead of the box resizing to fit it —
+     the box itself never moves or changes shape between hats. Also does
+     the actual header/body stacking, since .bubble itself needs
+     overflow:hidden (to clip the header's square corners to the card's
+     rounded ones) and can't also be the flex layout host cleanly. */
+  .bubble-content{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    transition:opacity .22s ease;
+  }
+  .bubble-content.is-swapping{ opacity:0; }
+
+  .bubble-header{
+    flex-shrink:0;
+    background:var(--yellow);
+    padding:0.5rem 1rem;
+  }
+  .bubble-role{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.1rem;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin:0;
+  }
+  .bubble-role-name{
+    text-decoration:underline;
+    text-decoration-thickness:2px;
+    text-underline-offset:3px;
+  }
+
+  .bubble-body{
+    flex:1;
+    display:flex;
+    align-items:center;
+    background:var(--yellow-soft);
+    padding:0.6rem 1rem;
+  }
+  .bubble-desc{
+    font-family:var(--font-body);
+    font-size:0.95rem;
+    line-height:1.45;
+    margin:0;
+    color:var(--ink-soft);
+    text-align:justify;
+  }
+
+  /* Stacked state swaps the whole card out for a plain line of text, set
+     in the same display font/weight and marker-highlight treatment as the
+     hero H1 ("I design learning experiences...") on the homepage itself —
+     no box, no border, so it visibly reads as a different kind of
+     statement than the one-hat-at-a-time role card above it. */
+  .stack-line[hidden]{
+    display:none;
+  }
+  .stack-line{
+    position:absolute;
+    inset:0;
+    margin:0 0 0 1.5rem;
+    display:flex;
+    align-items:center;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.6rem;
+    line-height:1.3;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    opacity:1;
+    transition:opacity .22s ease;
+  }
+  #promptLine{
+    margin-left:4rem;
+  }
+  .stack-line .highlight{
+    background:linear-gradient(to bottom, transparent 58%, var(--yellow) 58%);
+    padding:0 3px;
+  }
+
+  /* Corner badge — pinned to the frame's top-left, spilling slightly off
+     its rounded corner the same way the hat stack spills off the right
+     edge. The tilt is already baked into the artwork itself. Sits behind
+     every hat layer (the worn hat, the hat stack, and the selected tile) —
+     just above the plain frame background. */
+  .frame-badge{
+    position:absolute;
+    top:-1rem; left:-1.25rem;
+    z-index:1;
+    pointer-events:none;
+  }
+  .frame-badge img{
+    display:block;
+    width:8rem; height:auto;
+    filter:drop-shadow(0 6px 10px rgba(28,23,18,.25));
+  }
+</style>
+
+<div class="stage">
+    <div class="scene">
+      <div class="photo-frame reveal" id="photoFrame">
+        <div class="frame-badge">
+          <img src="images/hats/hats-i-wear-badge.png" alt="#Hats I Wear">
+        </div>
+
+        <div class="character-wrap">
+          <img class="character-art" src="images/hats/character.png" alt="Janet">
+          <div class="character-shine" id="characterShine"></div>
+          <div class="worn-hat" id="wornHat"></div>
+        </div>
+
+        <div class="hat-stack" role="group" aria-label="Instructional design roles">
+          <button class="hat-btn hat-btn--indicator" data-hat="0" aria-pressed="false" style="--tilt:-10deg" title="Teacher">
+            <img src="images/hats/hat-teacher.png" alt="Teacher">
+          </button>
+          <button class="hat-btn" data-hat="1" aria-pressed="false" style="--tilt:9deg" title="Project Manager">
+            <img src="images/hats/hat-project-manager.png" alt="Project Manager">
+          </button>
+          <button class="hat-btn" data-hat="2" aria-pressed="false" style="--tilt:-8deg" title="Designer">
+            <img src="images/hats/hat-designer.png" alt="Designer">
+          </button>
+          <button class="hat-btn" data-hat="3" aria-pressed="false" style="--tilt:10deg" title="Learning Scientist">
+            <img src="images/hats/hat-learning-scientist.png" alt="Learning Scientist">
+          </button>
+          <button class="hat-btn" data-hat="4" aria-pressed="false" style="--tilt:-9deg" title="Developer">
+            <img src="images/hats/hat-developer.png" alt="Developer">
+          </button>
+          <button class="hat-btn hat-btn--stack" id="stackBtn" aria-pressed="false" style="--tilt:-7deg" title="Instructional Designer">
+            <img src="images/hats/STACK.png" alt="Instructional Designer">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-slot">
+      <div class="bubble reveal" id="bubble" hidden>
+        <div class="bubble-content" id="bubbleContent">
+          <div class="bubble-header">
+            <p class="bubble-role" id="bubbleRole">Pick a hat.</p>
+          </div>
+          <div class="bubble-body">
+            <p class="bubble-desc" id="bubbleDesc">I wear a few different ones — click any of them to see the role.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="stack-line" id="promptLine"><span class="highlight">Pick a hat</span> for me.</p>
+
+      <p class="stack-line" id="stackLine" hidden>I am an <span class="highlight">Instructional Designer</span>.</p>
+    </div>
+</div>
+
+<script>
+  // one small data URI per hat illustration (kept out of the array for readability)
+  var HAT_IMG = {
+    teacher:  "images/hats/hat-teacher.png",
+    pm:       "images/hats/hat-project-manager.png",
+    designer: "images/hats/hat-designer.png",
+    ls:       "images/hats/hat-learning-scientist.png",
+    dev:      "images/hats/hat-developer.png"
+  };
+
+  var hats = [
+    {
+      role: "Teacher", wornH: 112, wornDY: -15,
+      desc: "I focus content on what learners actually need, cutting anything that doesn't serve the lesson.",
+      img: HAT_IMG.teacher
+    },
+    {
+      role: "Project Manager", wornH: 116, wornDY: 0,
+      desc: "I organize scope, timelines, and stakeholders so projects ship on schedule, not just on vision.",
+      img: HAT_IMG.pm
+    },
+    {
+      role: "Designer", wornH: 112, wornDY: 5,
+      desc: "I design visuals and media with intention, guided by multimedia learning principles.",
+      img: HAT_IMG.designer
+    },
+    {
+      role: "Learning Scientist", wornH: 150, wornDX: -8, wornDY: 10, wornRot: 0,
+      desc: "I apply cognitive load and adult learning theory to decide what actually helps people learn.",
+      img: HAT_IMG.ls
+    },
+    {
+      role: "Developer", wornH: 143, wornDX: -7, wornDY: 15,
+      desc: "I design interactive experiences, engineer websites and simulations from the ground up with code.",
+      img: HAT_IMG.dev
+    }
+  ];
+
+  // Only the 5 real hats — the STACK button has its own separate handler
+  // below, since clicking it flies in every hat at once instead of one.
+  var tiles = Array.prototype.slice.call(document.querySelectorAll('.hat-btn:not(.hat-btn--stack)'));
+  var stackBtn = document.getElementById('stackBtn');
+  var wornHat = document.getElementById('wornHat');
+  var bubble = document.getElementById('bubble');
+  var bubbleContent = document.getElementById('bubbleContent');
+  var bubbleRole = document.getElementById('bubbleRole');
+  var bubbleDesc = document.getElementById('bubbleDesc');
+  var characterShine = document.getElementById('characterShine');
+  var stackLine = document.getElementById('stackLine');
+  var promptLine = document.getElementById('promptLine');
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isFlying = false;
+  var current = -1; // -1 = no hat worn yet; any hat click will fly in correctly
+  var swapTimer = null;
+
+  // "a Teacher" vs "an Instructional Designer" — works for any role added later.
+  function withArticle(role){
+    return (/^[aeiou]/i.test(role) ? "an " : "a ");
+  }
+
+  function setBubbleText(h){
+    bubbleRole.innerHTML = "I am " + withArticle(h.role) + "<span class=\"bubble-role-name\">" + h.role + "</span>.";
+    bubbleDesc.textContent = h.desc;
+  }
+
+  // Same mechanic as the host site's own confetti easter egg (see the
+  // parent page's script.js), reimplemented locally since this iframe
+  // can't reach into that page's closured function across the boundary.
+  function burstConfetti(x, y){
+    var colors = ['#FFCB3D', '#BD7A5B', '#26221B', '#8C5E0B'];
+    var count = 20;
+    for (var i = 0; i < count; i++){
+      var dot = document.createElement('span');
+      dot.className = 'confetti-dot';
+      var angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+      var dist = 45 + Math.random() * 45;
+      dot.style.left = x + 'px';
+      dot.style.top = y + 'px';
+      dot.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      dot.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      dot.style.setProperty('--spin', Math.round(Math.random() * 360) + 'deg');
+      dot.style.background = colors[i % colors.length];
+      document.body.appendChild(dot);
+      dot.addEventListener('animationend', function(){ this.remove(); });
+    }
+  }
+
+  // Re-triggers the CSS shine animation on click, even if it's already
+  // mid-run from a fast previous click — removing the class, forcing a
+  // reflow, then re-adding it is what restarts a CSS animation on demand.
+  function triggerShine(){
+    if (reduceMotion || !characterShine) return;
+    characterShine.classList.remove('is-shining');
+    void characterShine.offsetWidth;
+    characterShine.classList.add('is-shining');
+  }
+
+  // The bubble box itself is a fixed size and never animates in/out — only
+  // its text content eases out, swaps, and eases back in, via a plain CSS
+  // opacity transition on .bubble-content (see .is-swapping in <style>).
+  function swapBubbleText(h){
+    if (reduceMotion){
+      setBubbleText(h);
+      return;
+    }
+    clearTimeout(swapTimer);
+    bubbleContent.classList.add('is-swapping');
+    swapTimer = setTimeout(function(){
+      setBubbleText(h);
+      bubbleContent.classList.remove('is-swapping');
+    }, 180);
+  }
+
+  // Toggles between the two-tone role card (single hats) and the plain
+  // highlighted line (STACK) — a short opacity crossfade on whichever is
+  // outgoing, then swap `hidden` and fade the incoming one in, rather than
+  // showing both or letting one pop in instantly.
+  function showFace(kind){
+    var showEl = kind === 'line' ? stackLine : bubble;
+    var hideEl = kind === 'line' ? bubble : stackLine;
+    if (!showEl.hidden && hideEl.hidden) return; // already showing the right one
+    if (reduceMotion){
+      hideEl.hidden = true;
+      showEl.hidden = false;
+      return;
+    }
+    hideEl.style.opacity = '0';
+    setTimeout(function(){
+      hideEl.hidden = true;
+      showEl.hidden = false;
+      showEl.style.opacity = '0';
+      requestAnimationFrame(function(){ showEl.style.opacity = '1'; });
+    }, 180);
+  }
+
+  // One-time dismissal of the "Pick a hat for me" prompt and the Teacher
+  // hat's pulsing indicator — fires on the very first click, whichever hat
+  // (or STACK) it lands on, and never comes back until the page reloads.
+  function dismissPrompt(){
+    if (promptLine.hidden) return;
+    tiles[0].classList.remove('hat-btn--indicator');
+    if (reduceMotion){
+      promptLine.hidden = true;
+      return;
+    }
+    promptLine.style.opacity = '0';
+    setTimeout(function(){ promptLine.hidden = true; }, 180);
+  }
+
+  function renderWornHat(index, animateLanding){
+    var h = hats[index];
+    wornHat.innerHTML = '<img src="' + h.img + '" alt="' + h.role + '" style="height:' + (h.wornH/16) + 'rem;transform:translate(' + ((h.wornDX||0)/16) + 'rem,' + (h.wornDY/16) + 'rem) rotate(' + (h.wornRot||0) + 'deg)" class="' + (animateLanding ? 'landing' : '') + '">';
+    triggerShine();
+    showFace('bubble');
+    swapBubbleText(h);
+    tiles.forEach(function(t, i){
+      t.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+    });
+    stackBtn.setAttribute('aria-pressed', 'false');
+  }
+
+  function flyHat(tile, index){
+    if (isFlying || index === current) return;
+    var icon = tile.querySelector('img');
+    var startRect = icon.getBoundingClientRect();
+
+    if (reduceMotion){
+      current = index;
+      renderWornHat(index, true);
+      return;
+    }
+
+    // Pre-render the destination hat invisibly first, so the animation targets
+    // its *actual* rendered box (position + size) instead of an estimate —
+    // that's what keeps the landing spot and the reveal spot identical.
+    var h = hats[index];
+    wornHat.innerHTML = '<img src="' + h.img + '" alt="' + h.role + '" style="height:' + (h.wornH/16) + 'rem;transform:translate(' + ((h.wornDX||0)/16) + 'rem,' + (h.wornDY/16) + 'rem) rotate(' + (h.wornRot||0) + 'deg);visibility:hidden">';
+    var endRect = wornHat.querySelector('img').getBoundingClientRect();
+
+    isFlying = true;
+    var clone = icon.cloneNode(true);
+    clone.removeAttribute('class');
+    clone.classList.add('flying-hat');
+    clone.style.left = startRect.left + 'px';
+    clone.style.top = startRect.top + 'px';
+    clone.style.width = startRect.width + 'px';
+    clone.style.height = startRect.height + 'px';
+    document.body.appendChild(clone);
+
+    var startCx = startRect.left + startRect.width/2;
+    var startCy = startRect.top + startRect.height/2;
+    var endCx = endRect.left + endRect.width/2;
+    var endCy = endRect.top + endRect.height/2;
+    var dx = endCx - startCx;
+    var dy = endCy - startCy;
+    var endScale = endRect.width / startRect.width;
+
+    // one continuous hop: rises off the rack, arcs over, settles exactly on
+    // the pre-measured spot — nothing swaps or jumps once it lands.
+    var anim = clone.animate([
+      { transform:'translate(0px,0px) scale(1) rotate(0deg)' },
+      { transform:'translate(' + (dx*0.5) + 'px,' + (dy - 44) + 'px) scale(' + endScale + ') rotate(-8deg)', offset:0.55 },
+      { transform:'translate(' + (dx*0.96) + 'px,' + (dy*0.97) + 'px) scale(' + (endScale*1.08) + ') rotate(3deg)', offset:0.85 },
+      { transform:'translate(' + dx + 'px,' + dy + 'px) scale(' + endScale + ') rotate(0deg)' }
+    ], { duration: 480, easing:'cubic-bezier(.3,.75,.3,1)', fill:'forwards' });
+
+    anim.onfinish = function(){
+      clone.remove();
+      isFlying = false;
+      current = index;
+      renderWornHat(index, false); // reveals at the exact spot the clone just landed
+    };
+  }
+
+  // STACK: every hat flies in at once and lands stacked on her head, then
+  // a confetti burst goes off and the bubble switches to the combined role.
+  function flyAllHats(){
+    if (isFlying) return;
+    isFlying = true;
+
+    // Pre-render the full stacked pile (invisible) so each hat's landing
+    // spot is measured from its own actual rendered box, same principle
+    // as the single-hat version — just once per hat instead of once.
+    var composite = hats.map(function(h){
+      return '<img src="' + h.img + '" alt="' + h.role + '" style="position:absolute;left:50%;bottom:0;' +
+        'height:' + (h.wornH/16) + 'rem;' +
+        'transform:translateX(-50%) translate(' + ((h.wornDX||0)/16) + 'rem,' + (h.wornDY/16) + 'rem) rotate(' + (h.wornRot||0) + 'deg);' +
+        'visibility:hidden">';
+    }).join('');
+    wornHat.innerHTML = composite;
+    var endImgs = Array.prototype.slice.call(wornHat.querySelectorAll('img'));
+
+    if (reduceMotion){
+      endImgs.forEach(function(img){ img.style.visibility = ''; });
+      finishStack();
+      return;
+    }
+
+    var toFinish = tiles.length;
+    tiles.forEach(function(tile, i){
+      var icon = tile.querySelector('img');
+      var startRect = icon.getBoundingClientRect();
+      var endRect = endImgs[i].getBoundingClientRect();
+
+      var clone = icon.cloneNode(true);
+      clone.classList.add('flying-hat');
+      clone.style.left = startRect.left + 'px';
+      clone.style.top = startRect.top + 'px';
+      clone.style.width = startRect.width + 'px';
+      clone.style.height = startRect.height + 'px';
+      document.body.appendChild(clone);
+
+      var dx = (endRect.left + endRect.width/2) - (startRect.left + startRect.width/2);
+      var dy = (endRect.top + endRect.height/2) - (startRect.top + startRect.height/2);
+      var scale = endRect.width / startRect.width;
+      var delay = i * 70;
+
+      var anim = clone.animate([
+        { transform:'translate(0px,0px) scale(1) rotate(0deg)' },
+        { transform:'translate(' + (dx*0.55) + 'px,' + (dy - 40) + 'px) scale(' + scale + ') rotate(' + (i % 2 ? 10 : -10) + 'deg)', offset:0.6 },
+        { transform:'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ') rotate(0deg)' }
+      ], { duration: 460, delay: delay, easing:'cubic-bezier(.3,.75,.3,1)', fill:'forwards' });
+
+      anim.onfinish = function(){
+        clone.remove();
+        endImgs[i].style.visibility = '';
+        toFinish--;
+        if (toFinish === 0) finishStack();
+      };
+    });
+
+    function finishStack(){
+      isFlying = false;
+      current = 'stack';
+      triggerShine();
+      showFace('line');
+      tiles.forEach(function(t){ t.setAttribute('aria-pressed', 'false'); });
+      stackBtn.setAttribute('aria-pressed', 'true');
+      var rect = wornHat.getBoundingClientRect();
+      burstConfetti(rect.left + rect.width / 2, rect.top + rect.height * 0.25);
+    }
+  }
+
+  tiles.forEach(function(tile, i){
+    tile.addEventListener('click', function(){ dismissPrompt(); flyHat(tile, i); });
+  });
+  stackBtn.addEventListener('click', function(){ dismissPrompt(); flyAllHats(); });
+
+  // No hat is worn and no bubble text is set here on purpose — the
+  // character starts bare-headed, and the "Pick a hat for me" prompt
+  // (see promptLine) stays put until the first click actually picks one.
+
+  // Reveal-on-load: same fade + rise the rest of the site uses on scroll,
+  // just triggered once this widget's own document finishes loading —
+  // the photo settles in first, the bubble follows a beat behind it.
+  var photoFrame = document.getElementById('photoFrame');
+  requestAnimationFrame(function(){
+    setTimeout(function(){ photoFrame.classList.add('in'); }, reduceMotion ? 0 : 60);
+    setTimeout(function(){ bubble.classList.add('in'); }, reduceMotion ? 0 : 220);
+  });
+</script>
