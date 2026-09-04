@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OLI Torus Onboarding — Janet Xie</title>
+  <meta name="description" content="Case study: a fully interactive, searchable onboarding hub for the OLI Torus course authoring platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+      <nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html" class="active">Portfolio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cs-header section-tight">
+    <div class="container">
+      <a href="work.html" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
+      <div style="max-width:760px;margin-top:14px;">
+        <span class="eyebrow">Instructional System Design &amp; Product Enablement</span>
+        <h1>An Onboarding Experience for OLI Torus</h1>
+        <p class="lead">A fully interactive, searchable tutorial hub that replaced long, scattered onboarding videos for the Torus course-authoring platform.</p>
+      </div>
+      <div class="hero-cta" style="margin-top:18px;">
+        <a href="https://simon-initiative.github.io/torus_tutorial/" target="_blank" rel="noopener" class="btn btn-primary">Experience the demo →</a>
+      </div>
+      <div class="cs-meta-grid">
+        <div><div class="k">Target audience</div><div class="v"><ul>
+          <li>Users interested in using Torus as a course design tool</li>
+          <li>New OLI employees who work with Torus daily</li>
+          <li>SMEs who've hosted multiple onboarding workshops</li>
+        </ul></div></div>
+        <div><div class="k">My role</div><div class="v">I am the <mark class="skill">Full-Stack Instructional Designer</mark> for this project.<br /><span class="fw-normal">I independently led the end-to-end cycle: <mark class="skill">SME collaboration</mark>, <mark class="skill">content creation</mark>, <mark class="skill">video script writing</mark>, <mark class="skill">interface design</mark>, and <mark class="skill">web-application development</mark>.</span></div></div>
+        <div><div class="k">Tools used</div><div class="v"><ul>
+          <li>Figma</li>
+          <li>HTML/CSS/Javascript</li>
+          <li>Camtasia</li>
+          <li>Google Doc</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="cs-body">
+        <div class="ps-wrap reveal">
+          <div class="ps-card is-problem">
+            <div class="glyph">?</div>
+            <h3>Problem</h3>
+            <p>Existing Torus onboarding was hard to use:</p>
+            <ul>
+              <li><strong>One long video.</strong> Hard to find one specific step.</li>
+              <li><strong>Scattered links.</strong> Just a list of YouTube videos, no central hub.</li>
+              <li><strong>No hands-on practice.</strong> Static video, nothing to click or try.</li>
+            </ul>
+            <p>Result: new users struggled to get started and often gave up.</p>
+          </div>
+          <div class="ps-connector" aria-hidden="true"><span>→</span></div>
+          <div class="ps-card is-solution">
+            <div class="glyph">→</div>
+            <h3>Solution</h3>
+            <p>I built an <mark class="skill">interactive, clickable tutorial</mark> that mirrors the real Torus interface:</p>
+            <ul>
+              <li><strong>Guided, hands-on walkthroughs.</strong> Self-paced steps with real clickable actions.</li>
+              <li><strong>Persistent navigation.</strong> One menu to revisit any section, anytime.</li>
+              <li><strong>Searchable &amp; scalable.</strong> Finds keywords across every transcript, and grows with Torus.</li>
+            </ul>
+            <p>Result: users find what they need and learn by doing.</p>
+          </div>
+        </div>
+
+        <h2>Design Process</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-head">
+              <div class="num">1</div>
+              <h3>Define learning objectives &amp; modules</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>Based on <mark class="skill">Subject Matter Expert interviews</mark> and <mark class="skill">think-aloud studies</mark>, I identified key user pain points and knowledge gaps when onboarding to Torus. From that research, I:</p>
+                  <ul>
+                    <li>Defined clear <mark class="skill">learning objectives</mark> for each stage of the tutorial</li>
+                    <li>Structured content into <mark class="skill">modular units</mark>, each aligned to a user task</li>
+                    <li>Prioritized core features for autoplay and marked advanced features as optional, click-to-learn elements</li>
+                  </ul>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/oli-torus/learning-objectives.avif" alt="" loading="lazy" /></div>
+                  <figcaption>Learning-objective outline for the "Set Up a Course" unit.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">2</div>
+              <h3>Writing instructional scripts</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>Once the structure was set, I wrote <mark class="skill">instructional scripts</mark> that:</p>
+                  <ul>
+                    <li>Mirror the real Torus interface and workflow</li>
+                    <li>Use a friendly, supportive tone to guide new users</li>
+                    <li>Include optional branches for deeper feature exploration</li>
+                    <li>Highlight decision points and common misconceptions</li>
+                  </ul>
+                  <p>This phase also included collaborative editing with <mark class="skill">Subject Matter Experts</mark> to ensure clarity and flow.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/oli-torus/script-table.avif" alt="" loading="lazy" /></div>
+                  <figcaption>A script excerpt: narration/captions paired with an on-screen-text column for each menu item.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">3</div>
+              <h3>Voice &amp; video production</h3>
+            </div>
+            <div class="step-body">
+              <p>I recorded all <mark class="skill">narration</mark> using my own voice for a more natural and human tone. During production, I:</p>
+              <ul>
+                <li>Synced narration with on-screen interactions</li>
+                <li>Created illustrative content to visualize concepts and show real UI behavior</li>
+                <li>Edited each segment for smooth transitions, timing, and clarity</li>
+                <li>Incorporated <mark class="skill">captions</mark> using the previously written scripts</li>
+              </ul>
+              <p>This approach made the tutorial more engaging, authentic, and user-friendly.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">4</div>
+              <h3>Interface prototyping in Figma</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>Before building the actual interaction, I designed the <mark class="skill">interface layout and menu structure</mark> in <mark class="skill">Figma</mark> to establish a clear visual flow. This helped prototype:</p>
+                  <ul>
+                    <li>A clean and intuitive layout</li>
+                    <li>Persistent sidebar navigation</li>
+                    <li>Visual grouping of related actions and tutorials</li>
+                  </ul>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/oli-torus/walkthrough-tooltip.avif" alt="" loading="lazy" /></div>
+                  <figcaption>The guided-overlay layout prototyped here, carried through to the built interface.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">5</div>
+              <h3>Full development in Visual Studio Code</h3>
+            </div>
+            <div class="step-body">
+              <div class="substeps">
+                <div class="substep">
+                  <h4>Interface Design</h4>
+                  <p>The system uses a unified HTML and CSS template to ensure a consistent look and feel across all tutorial pages. A responsive video container fills the available space, with a dedicated title bar directly beneath the video. Typography, spacing, and colors are standardized so design updates can be applied globally, and the layout adapts to different screen sizes to support responsive viewing.</p>
+                </div>
+                <div class="substep">
+                  <h4>Navigation System</h4>
+                  <div class="step-media">
+                    <div class="step-text">
+                      <p>A collapsible, scrollable sidebar menu allows users to browse tutorial sections efficiently, styled to match the target UI theme with smooth transitions and hover effects for better interactivity. Sidebar items can expand/collapse for section grouping, and state-preserving navigation ensures users can move between tutorials without full page reloads.</p>
+                    </div>
+                    <figure class="cs-figure">
+                      <div class="img-wrap"><img src="images/oli-torus/hero-demo.gif" alt="" loading="lazy" /></div>
+                      <figcaption>The persistent sidebar in action, with an embedded walkthrough video for the selected section.</figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <div class="substep">
+                  <h4>Search System (Search Wrapper)</h4>
+                  <div class="step-media">
+                    <div class="step-text">
+                      <p>A dedicated search wrapper page integrates with a transcript-data file that stores transcripts for every tutorial. Fuzzy search matches keywords within transcripts and highlights relevant results, each with a snippet of the matching transcript and a "Go to tutorial" button that opens the corresponding tutorial page directly. This modular design makes adding new tutorials as simple as updating the transcript data file.</p>
+                    </div>
+                    <figure class="cs-figure">
+                      <div class="img-wrap"><img src="images/oli-torus/nav-search.gif" alt="" loading="lazy" /></div>
+                      <figcaption>The finished hub: persistent sidebar navigation, search, and an embedded walkthrough video.</figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <div class="substep">
+                  <h4>Maintainability &amp; Scalability</h4>
+                  <div class="step-media">
+                    <div class="step-text">
+                      <p>Consistent templates and centralized data allow rapid updates. The modular JavaScript structure means features like search or new UI elements can be integrated without disrupting existing pages, and future tutorials can follow the same template without extra configuration.</p>
+                    </div>
+                    <figure class="cs-figure">
+                      <div class="img-wrap"><img src="images/oli-torus/dev-vscode.avif" alt="" loading="lazy" /></div>
+                      <figcaption>Building the template in VS Code with the live app previewed side by side.</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Live prototype</h2>
+        <p>This demo is a prototype of the tutorial hub interface. The overall layout and interaction flow are in place, but the design elements are not fully finalized yet. Some videos have already been integrated so you can get a sense of how the experience will look and feel, while others are still placeholders or pending upload. The goal here is to show the structure, navigation, and core functionality, rather than a finished design.</p>
+        <div class="proto-embed reveal">
+          <iframe src="https://simon-initiative.github.io/torus_tutorial/" title="OLI Torus interactive tutorial hub: live prototype" loading="lazy"></iframe>
+        </div>
+
+        <div class="case-nav">
+          <a href="work.html" class="btn btn-secondary">← All projects</a>
+          <a href="about.html#connect" class="btn btn-primary">Get in touch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+          <p>I design and build learning experiences,<br>from courses and media to tools and<br>educational products.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Portfolio</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="mailto:zhennianxie@gmail.com">zhennianxie@gmail.com</a><a href="tel:2244202193">224-420-2193</a><a href="https://www.linkedin.com/in/janetxie/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Janet Xie. All rights reserved.</span></div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

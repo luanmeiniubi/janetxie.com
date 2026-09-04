@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bias-Free Selling — Janet Xie</title>
+  <meta name="description" content="Case study: an AI-powered feedback API embedded in an Articulate Storyline course for corporate sales training." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+      <nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html" class="active">Portfolio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cs-header section-tight">
+    <div class="container">
+      <a href="work.html" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
+      <div style="max-width:760px;margin-top:14px;">
+        <span class="eyebrow">AI-Powered Sales Training</span>
+        <h1>Bias-Free Selling: AI-Powered Feedback for Corporate Training</h1>
+        <p class="lead">Embedding a custom AI feedback API into a corporate sales training course, so learners get real-time, personalized coaching on their own reflections.</p>
+      </div>
+      <div class="hero-cta" style="margin-top:18px;">
+        <a href="https://articulatejanet.s3.us-east-2.amazonaws.com/bias-free+selling+-+Storyline+output/story.html" target="_blank" rel="noopener" class="btn btn-primary">Experience the course →</a>
+      </div>
+      <div class="cs-meta-grid">
+        <div><div class="k">Course audience</div><div class="v"><ul>
+          <li>Car sales representatives working in customer-facing roles</li>
+          <li>Experience levels range from new hires to mid-career professionals</li>
+        </ul></div></div>
+        <div><div class="k">My role</div><div class="v">I am the <mark class="skill">Instructional Designer</mark>, <mark class="skill">Graphic Designer</mark>, and <mark class="skill">Developer</mark> in this project.</div></div>
+        <div><div class="k">Tools used</div><div class="v"><ul>
+          <li>Node.js API Integration</li>
+          <li>Articulate Storyline</li>
+          <li>Figma</li>
+          <li>Google Doc</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="cs-body">
+        <div class="ps-wrap reveal">
+          <div class="ps-card is-problem">
+            <div class="glyph">?</div>
+            <h3>Problem</h3>
+            <p>Traditional corporate and sales training programs, especially those delivered through eLearning platforms, often lack immediate feedback and offer no meaningful way to analyze learner responses quantitatively.</p>
+            <p>As a result, learners receive limited guidance on how to improve in real time, and instructional designers miss the opportunity to understand learner thinking or measure the effectiveness of reflection-based training.</p>
+          </div>
+          <div class="ps-connector" aria-hidden="true"><span>→</span></div>
+          <div class="ps-card is-solution">
+            <div class="glyph">→</div>
+            <h3>Solution</h3>
+            <p>To address this gap, I designed a custom <mark class="skill">Node.js API</mark> and embedded it directly into an Articulate Storyline course. This API analyzes learners' free-text reflection responses using a <mark class="skill">language model</mark> and provides immediate, personalized feedback based on their input.</p>
+            <p>The approach not only enhances learner engagement and promotes metacognitive thinking, but also lays the groundwork for scalable, data-driven evaluation of learning patterns in corporate training.</p>
+          </div>
+        </div>
+
+        <h2>Design Process</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-head">
+              <div class="num">1</div>
+              <h3>Build a scenario-based module</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>The course was developed as a <mark class="skill">scenario-based</mark> example to serve as a practical testbed for embedding and demonstrating this custom API within a real eLearning environment. By building a lightweight yet realistic module in Articulate Storyline, I simulated how a corporate training course could deliver personalized, real-time feedback on learner reflections, powered by a backend I built using Node.js and OpenAI.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/bias-free-selling/course-build.avif" alt="" loading="lazy" /></div>
+                  <figcaption>The full course flow, built as an Articulate Storyline module.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">2</div>
+              <h3>Ground it in learning science</h3>
+            </div>
+            <div class="step-body">
+              <p>Despite being a demonstration, the course content is grounded in learning sciences. I used the <mark class="skill">Backward Design model</mark> to ensure alignment between learning goals, instructional activities, and assessment. The course includes:</p>
+              <ul>
+                <li>Clearly defined <mark class="skill">learning objectives</mark> centered on bias mitigation in sales interactions</li>
+                <li><mark class="skill">Scenario-based branching content</mark> designed to reflect realistic workplace decisions</li>
+                <li><mark class="skill">Assessments</mark> including multiple choice, self-reflection, and scenario practice</li>
+                <li>Immediate feedback powered by my custom API</li>
+                <li>Fully custom visual and character design, built in Figma and implemented in Storyline</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2>AI-powered immediate feedback</h2>
+        <p>The steps below illustrate the end-to-end flow of the AI-powered feedback system embedded in the course: a learner submits a reflection, receives feedback in real time, and experiences differentiated responses based on the quality and confidence of their input.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-head">
+              <div class="num">1</div>
+              <h3>Learner reflects and submits</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>The learner reflects on their greeting habits in customer interactions. In this example, they recognize a bias in who they prioritize and express intent to be more inclusive. This free-text input is evaluated by the AI feedback grader.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/bias-free-selling/reflect-input.avif" alt="" loading="lazy" /></div>
+                  <figcaption>The learner's free-text reflection, ready to submit to the feedback grader.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">2</div>
+              <h3>Affirming feedback</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>After submission, the system returns tailored, affirming feedback. The API acknowledges the learner's insight and reinforces inclusive behaviors with a supportive message, encouraging further growth.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/bias-free-selling/affirming-feedback.avif" alt="" loading="lazy" /></div>
+                  <figcaption>An insightful reflection is met with affirming, personalized feedback.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-head">
+              <div class="num">3</div>
+              <h3>Empathetic encouragement</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>If the learner submits an unsure or minimal response, the feedback grader offers empathetic encouragement instead. Rather than penalizing uncertainty, the system reassures the learner and sets expectations for future lessons.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="images/bias-free-selling/empathetic-feedback.avif" alt="" loading="lazy" /></div>
+                  <figcaption>An unsure response is met with empathetic encouragement rather than a penalty.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Live prototype</h2>
+        <p>This is the finished demo module, with the AI feedback API embedded live: reflect on the prompt to see the personalized feedback in action.</p>
+        <div class="proto-embed reveal">
+          <iframe src="https://articulatejanet.s3.us-east-2.amazonaws.com/bias-free+selling+-+Storyline+output/story.html" title="Bias-Free Selling: live course prototype" loading="lazy"></iframe>
+        </div>
+
+        <h2>Why it matters</h2>
+        <p>This project shows what's possible when instructional design and software development meet: reflection-based training that used to be a one-way broadcast becomes a real conversation, at scale, without needing a live facilitator in the room.</p>
+
+        <div class="case-nav">
+          <a href="work.html" class="btn btn-secondary">← All projects</a>
+          <a href="about.html#connect" class="btn btn-primary">Get in touch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+          <p>I design and build learning experiences,<br>from courses and media to tools and<br>educational products.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Portfolio</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="mailto:zhennianxie@gmail.com">zhennianxie@gmail.com</a><a href="tel:2244202193">224-420-2193</a><a href="https://www.linkedin.com/in/janetxie/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Janet Xie. All rights reserved.</span></div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

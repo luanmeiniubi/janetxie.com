@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Particles World — Janet Xie</title>
+  <meta name="description" content="Case study: agent-based NetLogo models teaching middle school students particle behavior, thermal mixing, and evaporation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+      <nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html" class="active">Portfolio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cs-header section-tight">
+    <div class="container">
+      <a href="work.html" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
+      <div style="max-width:760px;margin-top:14px;">
+        <span class="eyebrow">Virtual Experiment</span>
+        <h1>Particles World: Thermal Mix &amp; Evaporation</h1>
+        <p class="lead">Two interactive NetLogo models that make particle behavior — temperature, state changes, evaporation — tangible for middle school science students.</p>
+      </div>
+      <div class="cs-meta-grid">
+        <div><div class="k">Audience</div><div class="v">Middle school science classes</div></div>
+        <div><div class="k">Platform</div><div class="v">NetLogo (Wilensky, 1999)</div></div>
+        <div><div class="k">Based on</div><div class="v">Molecular Dynamics Lennard-Jones model</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cs-body">
+        <h2>Goals</h2>
+        <p>The primary goal was to help students visually comprehend and analyze particle behavior under varying temperatures, states of matter, and environmental changes — turning abstract scientific concepts into something they can manipulate and observe directly, as an introductory, hands-on tool in the classroom. Both models are built on the Molecular Dynamics Lennard-Jones model (Kelter &amp; Wilensky, 2022), so the sliders students drag are grounded in real physics rather than a simplified cartoon of particle behavior.</p>
+
+        <h2>Model 1: Thermal Mix</h2>
+        <div class="step-media">
+          <div class="step-text">
+            <h3>What is it?</h3>
+            <p>A container is divided into four zones — red, yellow, green, and blue. Sliders control the temperature of the red, yellow, and green zones directly, while the blue zone is governed by room temperature. The model lets students explore how changing a zone's temperature changes the behavior of the particles inside it.</p>
+          </div>
+          <figure class="cs-figure">
+            <div class="img-wrap"><img src="images/netlogo/thermal-mix-interface.avif" alt="" loading="lazy" /></div>
+            <figcaption>The Thermal Mix interface: a particle-count slider and a temperature slider for each of the red, yellow, and green zones.</figcaption>
+          </figure>
+        </div>
+
+        <div class="substeps">
+          <div class="substep">
+            <h4>How it works</h4>
+            <p>Particle movement follows the Lennard-Jones potential, so particles interact with each other based on their distance and energy levels — moving and colliding according to their temperature and position within the container.</p>
+          </div>
+          <div class="substep">
+            <h4>How to use it</h4>
+            <p>Set the number of particles, then use the temperature sliders for the red, yellow, and green zones (and the room-temperature slider, which governs the blue zone and influences all the others). Click <strong>setup</strong> to initialize the model, then <strong>go</strong> to start the simulation.</p>
+          </div>
+          <div class="substep">
+            <h4>Extending the model</h4>
+            <p>Add more particles or adjust the Lennard-Jones potential for a more detailed, accurate model — or change the size or shape of the container to create new environments for the particles.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>Things to notice</strong> — What happens when only one zone is set to the minimum or maximum temperature? Why?</p>
+          <p style="margin-top:14px;"><strong>Things to try</strong> — Watch how particles move and interact based on each zone's temperature, and how the room temperature affects the particles in the blue zone. What happens when there's only one particle? Try different particle counts.</p>
+        </div>
+
+        <div class="step-media">
+          <div class="step-text">
+            <h4>Example code &amp; trajectory</h4>
+            <p><code>move-particles</code> updates each particle's position with a velocity-Verlet integrator and bounces it off the container walls; <code>color-particles</code> then recolors it by speed — red above 1.5, green in the mid-range, blue at or below room-temperature speed — so a particle's temperature reads instantly as color. As the sliders are pushed toward their extremes (red-temp and green-temp at 100, yellow-temp at 0), more red particles collect in the heated zones and more blue particles settle into the room-temperature zone.</p>
+          </div>
+          <figure class="cs-figure">
+            <div class="img-wrap"><img src="images/netlogo/thermal-mix-code.avif" alt="" loading="lazy" /></div>
+            <figcaption>The move-particles and color-particles procedures, in NetLogo's Code tab.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="cs-figure">
+          <div class="img-wrap"><img src="images/netlogo/thermal-mix-demo.gif" alt="" loading="lazy" /></div>
+          <figcaption>Live run, red-temp and green-temp both at 100: hot (red) particles concentrate in the heated zones while the room-temperature (blue) zone stays cool.</figcaption>
+        </figure>
+
+        <h2>Model 2: Evaporation</h2>
+        <div class="step-media">
+          <div class="step-text">
+            <h3>What is it?</h3>
+            <p>This model shows water molecules transitioning from liquid to gas under varying temperature conditions. Adjustable temperature and firepower sliders, plus switches to open or close each container's lid, let students experiment directly with the rate and mechanics of evaporation.</p>
+          </div>
+          <figure class="cs-figure">
+            <div class="img-wrap"><img src="images/netlogo/evaporation-interface.avif" alt="" loading="lazy" /></div>
+            <figcaption>The Evaporation interface: room-temperature and firepower sliders, a particles-die? toggle, and a lid-open switch for each container.</figcaption>
+          </figure>
+        </div>
+
+        <div class="step-media">
+          <div class="step-text">
+            <h4>Example code &amp; trajectory</h4>
+            <p><code>setup-firepower</code> draws a fire icon beneath the right-hand container, and <code>turn-on-fire</code> scales that flame with the firepower slider to signal added heat. <code>lid-control</code> opens or closes each container by toggling whether its top patches act as a solid wall, letting particles escape into open air. With the right lid open and firepower turned up, particles clearly evaporate out of that container faster than in the closed, unheated left container; if <code>particles-die?</code> is off, escaped particles keep moving and can drift into the open left container, changing its temperature.</p>
+          </div>
+          <figure class="cs-figure">
+            <div class="img-wrap"><img src="images/netlogo/evaporation-code.avif" alt="" loading="lazy" /></div>
+            <figcaption>The setup-firepower, lid-control, and turn-on-fire procedures.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="cs-figure">
+          <div class="img-wrap"><img src="images/netlogo/evaporation-demo.gif" alt="" loading="lazy" /></div>
+          <figcaption>Live run, right lid open with firepower turned up: particles evaporate rapidly into the air while the closed, unheated left container stays unchanged.</figcaption>
+        </figure>
+
+        <h2>Student engagement &amp; learning trajectories</h2>
+        <p>Both models are structured to encourage exploration: students manipulate sliders and switches and observe the outcome directly. This interactive approach supports a progression from basic concept recognition to more advanced analysis and application, useful across different stages of a lesson.</p>
+
+        <h2>Why NetLogo</h2>
+        <p>Both models are built on the Molecular Dynamics Lennard-Jones model (Kelter &amp; Wilensky, 2022), giving the simulations real physical grounding. NetLogo's agent-based environment made it straightforward to expose the underlying physics as a handful of student-facing sliders and switches, rather than hiding it behind a black box.</p>
+
+        <h2>Reference</h2>
+        <p style="font-size:0.92rem;">Kelter, J. and Wilensky, U. (2022). NetLogo Molecular Dynamics Lennard-Jones model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.<br>Wilensky, U. (1999). NetLogo. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</p>
+
+        <div class="case-nav">
+          <a href="work.html" class="btn btn-secondary">← All projects</a>
+          <a href="about.html#connect" class="btn btn-primary">Get in touch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+          <p>I design and build learning experiences,<br>from courses and media to tools and<br>educational products.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="index.html">Home</a><a href="about.html">About</a><a href="work.html">Portfolio</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="mailto:zhennianxie@gmail.com">zhennianxie@gmail.com</a><a href="tel:2244202193">224-420-2193</a><a href="https://www.linkedin.com/in/janetxie/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Janet Xie. All rights reserved.</span></div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
