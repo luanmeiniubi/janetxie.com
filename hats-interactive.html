@@ -653,10 +653,18 @@
     if (isFlying) return;
     isFlying = true;
 
+    // Stacking order is reversed from the tray's left-to-right hat order:
+    // Developer lands first (bottom of the pile), Teacher lands last (on
+    // top) — so both the composite's paint order (DOM order = z-order,
+    // later = on top) and the flight sequence below need to walk the hats
+    // array back-to-front instead of front-to-back.
+    var stackOrder = hats.map(function(h, i){ return i; }).reverse();
+
     // Pre-render the full stacked pile (invisible) so each hat's landing
     // spot is measured from its own actual rendered box, same principle
     // as the single-hat version — just once per hat instead of once.
-    var composite = hats.map(function(h){
+    var composite = stackOrder.map(function(i){
+      var h = hats[i];
       return '<img src="' + h.img + '" alt="' + h.role + '" style="position:absolute;left:50%;bottom:0;' +
         'height:' + (h.wornH/16) + 'rem;' +
         'transform:translateX(-50%) translate(' + ((h.wornDX||0)/16) + 'rem,' + (h.wornDY/16) + 'rem) rotate(' + (h.wornRot||0) + 'deg);' +
@@ -671,11 +679,12 @@
       return;
     }
 
-    var toFinish = tiles.length;
-    tiles.forEach(function(tile, i){
+    var toFinish = stackOrder.length;
+    stackOrder.forEach(function(hatIndex, k){
+      var tile = tiles[hatIndex];
       var icon = tile.querySelector('img');
       var startRect = icon.getBoundingClientRect();
-      var endRect = endImgs[i].getBoundingClientRect();
+      var endRect = endImgs[k].getBoundingClientRect();
 
       var clone = icon.cloneNode(true);
       clone.classList.add('flying-hat');
@@ -688,17 +697,17 @@
       var dx = (endRect.left + endRect.width/2) - (startRect.left + startRect.width/2);
       var dy = (endRect.top + endRect.height/2) - (startRect.top + startRect.height/2);
       var scale = endRect.width / startRect.width;
-      var delay = i * 70;
+      var delay = k * 70;
 
       var anim = clone.animate([
         { transform:'translate(0px,0px) scale(1) rotate(0deg)' },
-        { transform:'translate(' + (dx*0.55) + 'px,' + (dy - 40) + 'px) scale(' + scale + ') rotate(' + (i % 2 ? 10 : -10) + 'deg)', offset:0.6 },
+        { transform:'translate(' + (dx*0.55) + 'px,' + (dy - 40) + 'px) scale(' + scale + ') rotate(' + (k % 2 ? 10 : -10) + 'deg)', offset:0.6 },
         { transform:'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ') rotate(0deg)' }
       ], { duration: 460, delay: delay, easing:'cubic-bezier(.3,.75,.3,1)', fill:'forwards' });
 
       anim.onfinish = function(){
         clone.remove();
-        endImgs[i].style.visibility = '';
+        endImgs[k].style.visibility = '';
         toFinish--;
         if (toFinish === 0) finishStack();
       };
