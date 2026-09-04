@@ -39,6 +39,14 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* Safety net for narrow viewports: a handful of decorative elements
+   (blurred hero blobs, badges) are deliberately positioned partway off
+   their container's edge and aren't meant to be clipped there — but nothing
+   on the page is meant to scroll horizontally, so contain any of that
+   bleed at the document level instead of letting it open up page-wide
+   horizontal scroll on a narrow phone. */
+html, body { overflow-x: hidden; }
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -96,6 +104,12 @@ img { max-width: 100%; display: block; }
 }
 
 .lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 62ch; }
+/* Only forced onto one line on wide-enough viewports — on narrow screens
+   an un-wrapping line would either overflow off the edge or force the
+   whole page to scroll horizontally to read it. */
+@media (min-width: 700px) {
+  .lead--nowrap { white-space: nowrap; }
+}
 .center { text-align: center; }
 .center .lead { margin-left: auto; margin-right: auto; }
 
@@ -1142,7 +1156,11 @@ mark.skill {
     border-bottom: 1px solid var(--line);
     padding: 16px 24px;
     gap: 4px;
-    transform: translateY(-120%);
+    /* -100% alone (relative to the menu's own height) isn't reliably enough
+       to clear its 68px top offset — the box can still poke a sliver of its
+       last link into view. Subtract the offset explicitly so it's always
+       fully off-screen regardless of how tall the menu's content gets. */
+    transform: translateY(calc(-100% - 68px));
     transition: transform 0.3s ease;
     box-shadow: var(--shadow);
   }
