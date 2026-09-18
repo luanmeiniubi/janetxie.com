@@ -1,4 +1,17 @@
 <title>The Hats I Wear</title>
+<!-- Google tag (gtag.js) — loaded independently of the host page so this
+     widget's engagement events work even if parent-frame access is ever
+     restricted. send_page_view:false because this fragment isn't a page
+     visitors navigate to on its own (it's embedded via iframe in the
+     homepage hero) — it should only ever report custom interaction
+     events below, never a synthetic pageview of its own. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE3CCFL5LM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZE3CCFL5LM', { send_page_view: false });
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -482,6 +495,35 @@
   var stackLine = document.getElementById('stackLine');
   var promptLine = document.getElementById('promptLine');
 
+  // ---------- GA4 interaction/engagement tracking ----------
+  // "Interact" = picked at least one hat (single or STACK). Counted via the
+  // hats_widget_interact event; unique-user and total counts are both just
+  // the standard GA4 event report for that name, no extra setup needed.
+  // "How long" = wall-clock time from someone's first interaction to
+  // whenever the tab/page is hidden or unloaded, sent once as
+  // hats_widget_engagement_time with the duration in its `engagement_seconds`
+  // param. That param needs registering as a custom metric in GA4 Admin →
+  // Custom definitions before it shows up in a report — the raw value is
+  // visible immediately in DebugView / the event's detail table either way.
+  function track(name, params){
+    try { if (typeof gtag === 'function') gtag('event', name, params || {}); }
+    catch (err) { /* analytics failing silently should never break the widget */ }
+  }
+  var engagementStartedAt = null;
+  function noteInteraction(){
+    if (!engagementStartedAt) engagementStartedAt = Date.now();
+  }
+  function flushEngagementTime(){
+    if (!engagementStartedAt) return;
+    var seconds = Math.round((Date.now() - engagementStartedAt) / 1000);
+    engagementStartedAt = null;
+    if (seconds > 0) track('hats_widget_engagement_time', { engagement_seconds: seconds });
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') flushEngagementTime();
+  });
+  window.addEventListener('pagehide', flushEngagementTime);
+
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isFlying = false;
   var current = -1; // -1 = no hat worn yet; any hat click will fly in correctly
@@ -713,9 +755,19 @@
   }
 
   tiles.forEach(function(tile, i){
-    tile.addEventListener('click', function(){ dismissPrompt(); flyHat(tile, i); });
+    tile.addEventListener('click', function(){
+      dismissPrompt();
+      noteInteraction();
+      track('hats_widget_interact', { method: 'single', hat_role: hats[i].role });
+      flyHat(tile, i);
+    });
   });
-  stackBtn.addEventListener('click', function(){ dismissPrompt(); flyAllHats(); });
+  stackBtn.addEventListener('click', function(){
+    dismissPrompt();
+    noteInteraction();
+    track('hats_widget_interact', { method: 'stack' });
+    flyAllHats();
+  });
 
   // No hat is worn and no bubble text is set here on purpose — the
   // character starts bare-headed, and the "Pick a hat for me" prompt
