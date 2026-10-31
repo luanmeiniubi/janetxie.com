@@ -43,14 +43,14 @@
       <div style="max-width:760px;margin-top:14px;">
         <span class="eyebrow">Problem-Solving with AI</span>
         <h1>My Workspace: Fixing a Scattered Workday with AI</h1>
-        <p class="lead">My work lived in six places, and every morning went into stitching them together. I traced the real cost to the connecting, not the tasks, and designed a single workspace where AI links my projects, to-dos and messages for me.</p>
+        <p class="lead">My work lived in six tools, and I had quietly become the glue between them. Instead of adding a better to-do app, I traced the cost to its root, the hand-made connections between messages, projects and deadlines, and designed a workspace where AI makes those connections for me.</p>
       </div>
       <div class="cs-meta-grid">
         <div><div class="k">Target audience</div><div class="v"><ul>
           <li>Me first: one knowledge worker juggling many projects</li>
           <li>Then colleagues, through a test-drive copy and a build-your-own guide</li>
         </ul></div></div>
-        <div><div class="k">My role</div><div class="v">I was the <mark class="skill">problem owner, designer and builder</mark>.<br /><span class="fw-normal">I ran the whole cycle: <mark class="skill">problem diagnosis</mark>, <mark class="skill">requirements and guardrails</mark>, <mark class="skill">prompt design</mark>, <mark class="skill">iterative prototyping</mark> with an AI partner, and <mark class="skill">enablement</mark> for colleagues.</span></div></div>
+        <div><div class="k">My role</div><div class="v">I was the <mark class="skill">problem owner, designer and builder</mark>.<br /><span class="fw-normal">I ran the whole cycle: <mark class="skill">root-cause analysis</mark>, <mark class="skill">risk-based requirements</mark>, <mark class="skill">system design and trade-offs</mark>, <mark class="skill">prompt design</mark>, <mark class="skill">iterative prototyping</mark> with an AI partner, and <mark class="skill">enablement</mark> for colleagues.</span></div></div>
         <div><div class="k">Tools used</div><div class="v"><ul>
           <li>Claude (build partner + scheduled tasks)</li>
           <li>Microsoft 365: Outlook, Teams, OneDrive</li>
@@ -67,11 +67,11 @@
           <div class="ps-card is-problem">
             <div class="glyph">?</div>
             <h3>Problem</h3>
-            <p>My work was spread across six tools that didn't talk to each other:</p>
+            <p>My work was spread across six tools, and the only thing connecting them was me:</p>
             <ul>
-              <li><strong>Six sources.</strong> Calendar, email, Teams, a to-do list, notes and a project tracker.</li>
-              <li><strong>Manual stitching.</strong> Each morning went into matching messages to the projects they affected.</li>
-              <li><strong>Late surprises.</strong> A rescheduled meeting or a new request could quietly put a milestone at risk.</li>
+              <li><strong>Six disconnected sources.</strong> Calendar, email, Teams, a to-do list, notes and a project tracker.</li>
+              <li><strong>Me as the glue.</strong> Every morning I matched messages to projects and deadlines by hand.</li>
+              <li><strong>Risks found late.</strong> A rescheduled meeting or a new request could quietly put a milestone at risk.</li>
             </ul>
             <p>Result: the real work could only start after the morning went into piecing things together.</p>
           </div>
@@ -79,11 +79,11 @@
           <div class="ps-card is-solution">
             <div class="glyph">→</div>
             <h3>Solution</h3>
-            <p>I designed a <mark class="skill">connected personal workspace</mark> where AI does the stitching:</p>
+            <p>I designed a <mark class="skill">connected personal workspace</mark> that takes over the connecting:</p>
             <ul>
               <li><strong>One window.</strong> Schedule, to-dos, projects, notes and a weekly review together.</li>
-              <li><strong>Automatic connections.</strong> An hourly AI task matches new emails and Teams messages to my projects.</li>
-              <li><strong>Early warnings.</strong> It raises an alert on the affected project and suggests a to-do I can add or dismiss.</li>
+              <li><strong>AI that knows my projects.</strong> An hourly task checks new emails and Teams messages against the work I'm tracking.</li>
+              <li><strong>Early warnings, my call.</strong> It flags the affected project and suggests a to-do, and I decide what happens.</li>
             </ul>
             <p>Result: changes surface before they become problems.</p>
           </div>
@@ -95,13 +95,13 @@
           <div class="step">
             <div class="step-head">
               <div class="num">1</div>
-              <h3>Diagnose the real problem</h3>
+              <h3>Find the root cause, not the symptom</h3>
             </div>
             <div class="step-body">
-              <p>The easy answer would have been a better to-do app. Before building anything, I did a small <mark class="skill">needs analysis</mark> on myself: I listed where my work lived and what I did by hand each morning.</p>
-              <p>The pattern was clear. Having too many tasks wasn't the problem. The cost was in <strong>connecting</strong> information: reading a Teams message, remembering which project it touched, checking whether it moved a deadline, and then writing a to-do somewhere else. Another place to store tasks would have added a seventh tool.</p>
+              <p>The obvious fix was a better to-do app. I didn't trust it, because it treated the symptom (too many tasks) without asking where the time actually went. So I ran a <mark class="skill">root-cause analysis</mark> on my own workday: I listed every place my work lived and traced what happened to a single piece of information from the moment it arrived.</p>
+              <p>A typical Teams message took four manual steps: read it, work out which project it touched, check whether it moved a deadline, then write a to-do in a different tool. The tasks themselves weren't the bottleneck. <strong>The connecting was.</strong> And a new to-do app would only have added a seventh place to check.</p>
               <div class="callout">
-                <p><strong>The reframe</strong>Not "where do I keep my tasks?" but "how do I stop being the person who connects everything by hand?" That question shaped every decision that followed.</p>
+                <p><strong>The reframe</strong>The question changed from "where do I keep my tasks?" to "how do I stop being the person who connects everything by hand?" That one change ruled out a whole category of solutions and pointed every later decision in the same direction.</p>
               </div>
             </div>
           </div>
@@ -109,30 +109,31 @@
           <div class="step">
             <div class="step-head">
               <div class="num">2</div>
-              <h3>Set guardrails before features</h3>
+              <h3>Turn risks into requirements</h3>
             </div>
             <div class="step-body">
-              <p>I work at a university, so the solution had to be safe before it could be useful. I wrote down the <mark class="skill">constraints</mark> first and treated them as requirements:</p>
+              <p>Giving AI access to my email and calendar is only worth it if it can't cause harm. Before designing a single feature, I listed what could go wrong and turned each <mark class="skill">risk</mark> into a design rule the tool had to follow:</p>
               <ul>
-                <li><strong>Read-only.</strong> The AI can read my calendar, email and Teams, but it can never send, reply or change anything.</li>
-                <li><strong>My data, my folder.</strong> Everything is stored as plain files in my own OneDrive. No separate server, account or sign-in.</li>
-                <li><strong>No student records.</strong> Notes that look like they contain an SSN, ID number, phone number or student email are blocked from being sent to AI.</li>
-                <li><strong>Humans decide.</strong> AI only suggests. Every to-do, alert and project plan waits for me to add, edit or dismiss it.</li>
-                <li><strong>Built for one person.</strong> I kept it a personal tool on purpose, which kept it simple and kept other people's data out.</li>
+                <li><strong>AI acting on my behalf → read-only.</strong> It can read my calendar, email and Teams, but it can never send, reply or change anything.</li>
+                <li><strong>Data leaving my control → my data, my folder.</strong> Everything is stored as plain files in my own OneDrive. No separate server, account or sign-in.</li>
+                <li><strong>Sensitive records reaching AI → blocked at the source.</strong> Notes that look like they contain an SSN, ID number, phone number or student email are never sent to AI.</li>
+                <li><strong>AI getting it wrong → humans decide.</strong> AI only suggests. Every to-do, alert and project plan waits for me to add, edit or dismiss it.</li>
+                <li><strong>Scope creep → built for one person.</strong> Keeping it a personal tool kept it simple and kept other people's data out.</li>
               </ul>
+              <p>Writing the guardrails first meant they shaped the design instead of being added on at the end.</p>
             </div>
           </div>
 
           <div class="step">
             <div class="step-head">
               <div class="num">3</div>
-              <h3>Prototype one screen, then iterate</h3>
+              <h3>Prototype the smallest useful piece</h3>
             </div>
             <div class="step-body">
               <div class="step-media">
                 <div class="step-text">
-                  <p>Instead of specifying the whole system up front, I described one screen, the dashboard, to Claude in plain language and asked for a clickable preview.</p>
-                  <p>Then I used <mark class="skill">rapid iteration</mark>: open the preview, note what was off or missing, share a screenshot, and change one thing at a time. Each round was a small test against how I actually work, the same loop I use when I prototype a course with learners.</p>
+                  <p>Rather than specify a whole system I couldn't yet picture, I started with the one screen I'd use every morning: the dashboard. I described it to Claude in plain language and asked for a clickable preview.</p>
+                  <p>From there I used <mark class="skill">rapid iteration</mark>: open the preview, note what was off or missing, share a screenshot, and change one thing at a time. Changing one variable per round made it clear what each change actually did, the same discipline I use when I test a course with learners.</p>
                 </div>
                 <figure class="cs-figure">
                   <div class="img-wrap"><img src="/images/my-workspace/dashboard.webp" alt="" loading="lazy" /></div>
@@ -141,7 +142,7 @@
               </div>
               <div class="step-media">
                 <div class="step-text">
-                  <p>I added features only when a real need came up. Quick add, for example, lets me save a thought from any program without switching windows.</p>
+                  <p>A feature only got built when real use showed a need for it. Quick add came from noticing how often I lost a thought while switching windows, so now I can capture it from any program with one shortcut.</p>
                 </div>
                 <figure class="cs-figure">
                   <div class="img-wrap"><img src="/images/my-workspace/quickadd.webp" alt="" loading="lazy" /></div>
@@ -154,21 +155,22 @@
           <div class="step">
             <div class="step-head">
               <div class="num">4</div>
-              <h3>Solve the connection problem</h3>
+              <h3>Design around the hardest constraint</h3>
             </div>
             <div class="step-body">
-              <p>This was the hardest part and the core of the project. I needed Microsoft 365 data in the tool without building a sign-in or an integration I'd have to maintain.</p>
+              <p>This was the core of the project. The tool needed live Microsoft 365 data, but my guardrails ruled out the usual route: building a sign-in and an integration that I'd have to secure and maintain myself.</p>
               <div class="substeps">
                 <div class="substep">
-                  <h4>Decision: let a scheduled AI task do the reading</h4>
-                  <p>Every weekday hour, a read-only Claude task reads my Outlook calendar, email and Teams and writes a small summary file into my OneDrive folder. The app just reads that file. Keeping the two parts separate meant the app never touches my accounts, and either side can change without breaking the other.</p>
+                  <h4>Decision: split reading from displaying</h4>
+                  <p>I separated the system into two parts that share only a file. Every weekday hour, a read-only Claude task reads my Outlook calendar, email and Teams and writes a small summary file into my OneDrive folder. The app just reads that file.</p>
+                  <p>This <mark class="skill">trade-off</mark> gave up instant updates for simplicity and safety: the app never holds my credentials or touches my accounts, and either side can change without breaking the other.</p>
                 </div>
                 <div class="substep">
-                  <h4>Decision: make the prompt do the connecting</h4>
+                  <h4>Decision: give the AI context, not just content</h4>
                   <div class="step-media">
                     <div class="step-text">
-                      <p>I wrote the task's <mark class="skill">prompt</mark> so Claude checks every message against the projects and to-dos already in the tool. When an email or Teams message touches a project I track, it adds an alert to that project. When action is needed, it suggests a to-do. It also flags schedule conflicts and suspicious emails.</p>
-                      <p>For example, if a colleague writes in Teams that a review has moved to Friday, the dashboard flags that the change squeezes an upcoming feedback milestone and offers a to-do to respond.</p>
+                      <p>An AI that summarizes my inbox just gives me a shorter list to read. The insight was to make it <strong>do the connecting</strong>. I wrote the task's <mark class="skill">prompt</mark> so Claude checks every message against the projects and to-dos already in the tool. When a message touches a project I track, it adds an alert to that project. When action is needed, it suggests a to-do. It also flags schedule conflicts and suspicious emails.</p>
+                      <p>For example, if a colleague writes in Teams that a review has moved to Friday, the dashboard flags that the change squeezes an upcoming feedback milestone and offers a to-do to respond. That's the four manual steps from step 1, done before I open the app.</p>
                     </div>
                     <figure class="cs-figure">
                       <div class="img-wrap"><img src="/images/my-workspace/connect.webp" alt="" loading="lazy" /></div>
@@ -183,17 +185,17 @@
           <div class="step">
             <div class="step-head">
               <div class="num">5</div>
-              <h3>Connect the rest of the work</h3>
+              <h3>Close the loops inside the tool</h3>
             </div>
             <div class="step-body">
               <div class="step-media">
                 <div class="step-text">
-                  <p>With the connection engine working, I made sure nothing inside the tool stood alone either:</p>
+                  <p>Fixing the connections between tools would mean little if the pieces inside the tool still stood alone. I applied the same <mark class="skill">systems thinking</mark> inward, so each part feeds the others:</p>
                   <ul>
-                    <li><strong>Projects</strong> hold the goal, milestones, tasks, notes and documents. Tasks follow their milestone date if it moves.</li>
+                    <li><strong>Projects</strong> hold the goal, milestones, tasks, notes and documents. When a milestone date moves, its tasks move with it.</li>
                     <li><strong>Plan with AI</strong> drafts milestones and tasks from a description or a document, and I review them before anything is created.</li>
-                    <li><strong>Notes</strong> link to projects, and AI can suggest to-dos from a meeting note.</li>
-                    <li><strong>Weekly Review</strong> shows what got done and how each project moved, so I can reflect and adjust.</li>
+                    <li><strong>Notes</strong> link to projects, and AI can turn a meeting note into suggested to-dos.</li>
+                    <li><strong>Weekly Review</strong> shows what got done and how each project moved, closing the loop so I can reflect and adjust.</li>
                   </ul>
                 </div>
                 <figure class="cs-figure">
@@ -207,14 +209,14 @@
           <div class="step">
             <div class="step-head">
               <div class="num">6</div>
-              <h3>Turn a personal fix into something others can use</h3>
+              <h3>Scale the method, not the tool</h3>
             </div>
             <div class="step-body">
-              <p>Once it worked for me, I wanted colleagues to benefit too. Since everyone works differently, I didn't want to hand out my tool as the answer. I designed the rollout as a <mark class="skill">learning experience</mark> instead:</p>
+              <p>When colleagues asked about it, I saw a trap: my tool fits my workflow, and handing it out would just move my solution onto someone else's problem. The part that transfers is the <strong>way of thinking</strong>. So I designed the rollout as a <mark class="skill">learning experience</mark>:</p>
               <ul>
-                <li><strong>A test drive.</strong> Colleagues can try a clean copy with their own data for a few weeks and notice what helps.</li>
+                <li><strong>A test drive.</strong> Colleagues can try a clean copy with their own data for a few weeks and notice what actually helps them.</li>
                 <li><strong>A build-your-own path.</strong> A short guided interview and ready-to-copy prompts for each feature help people build a version around their own workflow.</li>
-                <li><strong>The method, not just the tool.</strong> I documented the six steps I followed: name the problem, describe it, refine the preview, connect Microsoft 365, package the app, and keep improving.</li>
+                <li><strong>The method, made explicit.</strong> I documented the six steps I followed: name the problem, describe it, refine the preview, connect Microsoft 365, package the app, and keep improving.</li>
               </ul>
             </div>
           </div>
@@ -228,7 +230,8 @@
           <li><strong>A repeatable method.</strong> Colleagues can test-drive the tool or build their own using the prompts and steps I wrote.</li>
         </ul>
 
-        <p>I look for the root cause before the obvious fix, set guardrails before features, prototype small and iterate with real use, and then turn what I learned into something others can learn from. It's the same process I use to design learning, applied to my own workflow.</p>
+        <p>The tool is the visible result, but the thinking is what carries over to any problem: question the obvious fix, find the true bottleneck, turn risks into rules before writing features, choose trade-offs on purpose, and build the smallest thing that can prove an idea. It's the same process I use to design learning, applied to my own work.</p>
+
 
         <div class="case-nav">
           <a href="/work/" class="btn btn-secondary">← All projects</a>
