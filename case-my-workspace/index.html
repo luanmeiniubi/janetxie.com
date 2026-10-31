@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE3CCFL5LM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZE3CCFL5LM');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Workspace — Janet Xie</title>
+  <meta name="description" content="Case study: how I diagnosed a scattered workday and designed an AI-connected workspace that links my projects, tasks and messages automatically." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+      <nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/work/" class="active">Portfolio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cs-header section-tight">
+    <div class="container">
+      <a href="/work/" class="back-link"><span class="chevrons">‹‹‹</span> back</a>
+      <div style="max-width:760px;margin-top:14px;">
+        <span class="eyebrow">Problem-Solving &amp; AI Workflow Innovation</span>
+        <h1>My Workspace: Fixing a Scattered Workday with AI</h1>
+        <p class="lead">My work lived in six places, and every morning went into stitching them together. I traced the real cost to the connecting, not the tasks, and designed a single workspace where AI links my projects, to-dos and messages for me.</p>
+      </div>
+      <div class="cs-meta-grid">
+        <div><div class="k">Who it serves</div><div class="v"><ul>
+          <li>Me first: one knowledge worker juggling many projects</li>
+          <li>Then colleagues, through a test-drive copy and a build-your-own guide</li>
+        </ul></div></div>
+        <div><div class="k">My role</div><div class="v">I was the <mark class="skill">problem owner, designer and builder</mark>.<br /><span class="fw-normal">I ran the whole cycle: <mark class="skill">problem diagnosis</mark>, <mark class="skill">requirements and guardrails</mark>, <mark class="skill">prompt design</mark>, <mark class="skill">iterative prototyping</mark> with an AI partner, and <mark class="skill">enablement</mark> for colleagues.</span></div></div>
+        <div><div class="k">Tools used</div><div class="v"><ul>
+          <li>Claude (build partner + scheduled tasks)</li>
+          <li>Microsoft 365: Outlook, Teams, OneDrive</li>
+          <li>Electron (HTML/CSS/JavaScript)</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="cs-body">
+        <figure class="cs-hero-shot reveal">
+          <img src="/images/my-workspace/dashboard.webp" width="1400" height="875" alt="The My Workspace dashboard: a morning greeting, today's schedule with a meeting conflict flagged, upcoming to-dos, and projects with an at-risk alert" />
+          <figcaption style="margin-top:10px;font-size:0.86rem;color:var(--ink-faint);">The finished dashboard (sample data).</figcaption>
+        </figure>
+
+        <div class="ps-wrap reveal">
+          <div class="ps-card is-problem">
+            <div class="glyph">?</div>
+            <h3>Problem</h3>
+            <p>My work was spread across six tools that didn't talk to each other:</p>
+            <ul>
+              <li><strong>Six sources.</strong> Calendar, email, Teams, a to-do list, notes and a project tracker.</li>
+              <li><strong>Manual stitching.</strong> Each morning went into matching messages to the projects they affected.</li>
+              <li><strong>Late surprises.</strong> A rescheduled meeting or a new request could quietly put a milestone at risk.</li>
+            </ul>
+            <p>Result: the real work could only start after the morning went into piecing things together.</p>
+          </div>
+          <div class="ps-connector" aria-hidden="true"><span>→</span></div>
+          <div class="ps-card is-solution">
+            <div class="glyph">→</div>
+            <h3>Solution</h3>
+            <p>I designed a <mark class="skill">connected personal workspace</mark> where AI does the stitching:</p>
+            <ul>
+              <li><strong>One window.</strong> Schedule, to-dos, projects, notes and a weekly review together.</li>
+              <li><strong>Automatic connections.</strong> An hourly AI task matches new emails and Teams messages to my projects.</li>
+              <li><strong>Early warnings.</strong> It raises an alert on the affected project and suggests a to-do I can add or dismiss.</li>
+            </ul>
+            <p>Result: changes surface before they become problems.</p>
+          </div>
+        </div>
+
+        <h2>How I solved it</h2>
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">1</div>
+              <h3>Diagnose the real problem</h3>
+            </div>
+            <div class="step-body">
+              <p>The easy answer would have been a better to-do app. Before building anything, I did a small <mark class="skill">needs analysis</mark> on myself: I listed where my work lived and what I did by hand each morning.</p>
+              <p>The pattern was clear. Having too many tasks wasn't the problem. The cost was in <strong>connecting</strong> information: reading a Teams message, remembering which project it touched, checking whether it moved a deadline, and then writing a to-do somewhere else. Another place to store tasks would have added a seventh tool.</p>
+              <div class="callout">
+                <p><strong>The reframe</strong>Not "where do I keep my tasks?" but "how do I stop being the person who connects everything by hand?" That question shaped every decision that followed.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">2</div>
+              <h3>Set guardrails before features</h3>
+            </div>
+            <div class="step-body">
+              <p>I work at a university, so the solution had to be safe before it could be useful. I wrote down the <mark class="skill">constraints</mark> first and treated them as requirements:</p>
+              <ul>
+                <li><strong>Read-only.</strong> The AI can read my calendar, email and Teams, but it can never send, reply or change anything.</li>
+                <li><strong>My data, my folder.</strong> Everything is stored as plain files in my own OneDrive. No separate server, account or sign-in.</li>
+                <li><strong>No student records.</strong> Notes that look like they contain an SSN, ID number, phone number or student email are blocked from being sent to AI.</li>
+                <li><strong>Humans decide.</strong> AI only suggests. Every to-do, alert and project plan waits for me to add, edit or dismiss it.</li>
+                <li><strong>Built for one person.</strong> I kept it a personal tool on purpose, which kept it simple and kept other people's data out.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">3</div>
+              <h3>Prototype one screen, then iterate</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>Instead of specifying the whole system up front, I described one screen, the dashboard, to Claude in plain language and asked for a clickable preview.</p>
+                  <p>Then I used <mark class="skill">rapid iteration</mark>: open the preview, note what was off or missing, share a screenshot, and change one thing at a time. Each round was a small test against how I actually work, the same loop I use when I prototype a course with learners.</p>
+                  <p>I added features only when a real need came up. Quick add, for example, lets me save a thought from any program without switching windows.</p>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="/images/my-workspace/quickadd.webp" alt="" loading="lazy" /></div>
+                  <figcaption>Quick add: capture a to-do or note from any program with one shortcut.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">4</div>
+              <h3>Solve the connection problem</h3>
+            </div>
+            <div class="step-body">
+              <p>This was the hardest part and the core of the project. I needed Microsoft 365 data in the tool without building a sign-in or an integration I'd have to maintain.</p>
+              <div class="substeps">
+                <div class="substep">
+                  <h4>Decision: let a scheduled AI task do the reading</h4>
+                  <p>Every weekday hour, a read-only Claude task reads my Outlook calendar, email and Teams and writes a small summary file into my OneDrive folder. The app just reads that file. Keeping the two parts separate meant the app never touches my accounts, and either side can change without breaking the other.</p>
+                </div>
+                <div class="substep">
+                  <h4>Decision: make the prompt do the connecting</h4>
+                  <div class="step-media">
+                    <div class="step-text">
+                      <p>I wrote the task's <mark class="skill">prompt</mark> so Claude checks every message against the projects and to-dos already in the tool. When an email or Teams message touches a project I track, it adds an alert to that project. When action is needed, it suggests a to-do. It also flags schedule conflicts and suspicious emails.</p>
+                      <p>For example, if a colleague writes in Teams that a review has moved to Friday, the dashboard flags that the change squeezes an upcoming feedback milestone and offers a to-do to respond.</p>
+                    </div>
+                    <figure class="cs-figure">
+                      <div class="img-wrap"><img src="/images/my-workspace/connect.webp" alt="" loading="lazy" /></div>
+                      <figcaption>Suggested to-dos and a project risk alert, found automatically (sample data).</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">5</div>
+              <h3>Connect the rest of the work</h3>
+            </div>
+            <div class="step-body">
+              <div class="step-media">
+                <div class="step-text">
+                  <p>With the connection engine working, I made sure nothing inside the tool stood alone either:</p>
+                  <ul>
+                    <li><strong>Projects</strong> hold the goal, milestones, tasks, notes and documents. Tasks follow their milestone date if it moves.</li>
+                    <li><strong>Plan with AI</strong> drafts milestones and tasks from a description or a document, and I review them before anything is created.</li>
+                    <li><strong>Notes</strong> link to projects, and AI can suggest to-dos from a meeting note.</li>
+                    <li><strong>Weekly Review</strong> shows what got done and how each project moved, so I can reflect and adjust.</li>
+                  </ul>
+                </div>
+                <figure class="cs-figure">
+                  <div class="img-wrap"><img src="/images/my-workspace/projects.webp" alt="" loading="lazy" /></div>
+                  <figcaption>A project with its goal, milestones and documents (sample data).</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-head">
+              <div class="num">6</div>
+              <h3>Turn a personal fix into something others can use</h3>
+            </div>
+            <div class="step-body">
+              <p>Once it worked for me, I wanted colleagues to benefit too. Since everyone works differently, I didn't want to hand out my tool as the answer. I designed the rollout as a <mark class="skill">learning experience</mark> instead:</p>
+              <ul>
+                <li><strong>A test drive.</strong> Colleagues can try a clean copy with their own data for a few weeks and notice what helps.</li>
+                <li><strong>A build-your-own path.</strong> A short guided interview and ready-to-copy prompts for each feature help people build a version around their own workflow.</li>
+                <li><strong>The method, not just the tool.</strong> I documented the six steps I followed: name the problem, describe it, refine the preview, connect Microsoft 365, package the app, and keep improving.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2>Results</h2>
+        <!-- EDIT: add a concrete outcome here if you have one, such as minutes saved each morning, how many colleagues test-drove it, or a quote from one of them. -->
+        <ul>
+          <li><strong>One window instead of six.</strong> My day, projects, notes and to-dos live together.</li>
+          <li><strong>Problems surface early.</strong> Schedule changes and new requests show up on the project they affect, with a suggested next step.</li>
+          <li><strong>A repeatable method.</strong> Colleagues can test-drive the tool or build their own using the prompts and steps I wrote.</li>
+        </ul>
+
+        <h2>What this project shows</h2>
+        <div class="callout">
+          <p><strong>How I approach problems</strong>I look for the root cause before the obvious fix, set guardrails before features, prototype small and iterate with real use, and then turn what I learned into something others can learn from. It's the same process I use to design learning, applied to my own workflow.</p>
+        </div>
+
+        <div class="case-nav">
+          <a href="/work/" class="btn btn-secondary">← All projects</a>
+          <a href="/about/#connect" class="btn btn-primary">Get in touch →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="https://janetxie.com/" class="nav-logo">Janet Xie<span class="dot">.</span></a>
+          <p>I design and build learning experiences,<br>from courses and media to tools and<br>educational products.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="/">Home</a><a href="/about/">About</a><a href="/work/">Portfolio</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="mailto:zhennianxie@gmail.com">zhennianxie@gmail.com</a><a href="tel:2244202193">224-420-2193</a><a href="https://www.linkedin.com/in/janetxie/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Janet Xie. All rights reserved.</span></div>
+    </div>
+  </footer>
+  <script src="/script.js"></script>
+</body>
+</html>
