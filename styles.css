@@ -438,6 +438,11 @@ section[id] { scroll-margin-top: 84px; }
 }
 .think-card:hover { transform: none; box-shadow: none; }
 .think-card.is-open { z-index: 10; }
+/* While a card is shrinking closed it stays pinned (see .is-closing in
+   script.js). Dropping it back into the flow mid-collapse would briefly
+   make its grid row taller, which shoves the neighboring cards down and
+   snaps them back: the "flashing rearrangement". */
+.think-card.is-closing { z-index: 9; }
 /* The site-wide .reveal fade brings elements in via opacity, which — on a
    solid white card sitting on the section's cream background — reads as a
    yellow tint mid-transition. Since these cards stagger in one after
@@ -458,7 +463,8 @@ section[id] { scroll-margin-top: 84px; }
   transition: box-shadow 0.25s ease;
 }
 .think-card--accent .think-shape { background: var(--yellow-soft); border-color: var(--yellow); }
-.think-card.is-open .think-shape {
+.think-card.is-open .think-shape,
+.think-card.is-closing .think-shape {
   position: absolute;
   top: 0;
   left: 0;
@@ -491,14 +497,18 @@ section[id] { scroll-margin-top: 84px; }
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease;
+  overflow: hidden;
 }
+/* The gap above the text is permanent padding, clipped by .think-detail
+   while collapsed, so it grows and shrinks with the animation instead of
+   snapping in/out when .is-open toggles. */
 .think-detail p {
   overflow: hidden;
   margin: 0;
+  padding-top: 14px;
   text-align: center;
 }
 .think-card.is-open .think-detail { grid-template-rows: 1fr; }
-.think-card.is-open .think-detail p { padding-top: 14px; }
 @media (prefers-reduced-motion: reduce) {
   .think-shape, .think-detail { transition: none; }
 }
@@ -519,16 +529,6 @@ section[id] { scroll-margin-top: 84px; }
 .portfolio-row-label { position: sticky; top: 92px; }
 .portfolio-row-label h2 { font-size: 1.5rem; margin-bottom: 8px; }
 .portfolio-row-label p { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
-/* Quiet invitation to reach out for more, tucked under a category's
-   description instead of taking up a card slot in its grid. */
-.row-more-link {
-  display: inline-block;
-  margin-top: 14px;
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: var(--gold-text);
-  text-decoration: underline;
-}
 
 /* ---------- Project cards: picture on top, plain body below ---------- */
 .project-grid {
@@ -575,6 +575,22 @@ section[id] { scroll-margin-top: 84px; }
 .project-card h3 { color: var(--ink); margin-bottom: 10px; }
 .project-card p { color: var(--ink-soft); font-size: 0.96rem; margin-bottom: 16px; }
 .project-card .project-link { margin-top: auto; font-weight: 700; font-size: 0.92rem; color: var(--gold-text); text-decoration: underline; }
+
+/* A category with only one project: stretch that card across the row as a
+   wide picture-left / text-right card, so the row reads as full rather
+   than one small card beside empty space. */
+.project-grid:has(> .project-card:only-child) { grid-template-columns: 1fr; }
+.project-grid > .project-card:only-child { flex-direction: row; }
+.project-grid > .project-card:only-child .project-thumb { flex: 0 0 55%; aspect-ratio: 16 / 10; }
+.project-grid > .project-card:only-child .project-body { justify-content: center; padding: 32px 36px; }
+.project-grid > .project-card:only-child h3 { font-size: 1.5rem; }
+.project-grid > .project-card:only-child .project-link { margin-top: 4px; }
+
+@media (max-width: 900px) {
+  .project-grid > .project-card:only-child { flex-direction: column; }
+  .project-grid > .project-card:only-child .project-thumb { flex: none; }
+  .project-grid > .project-card:only-child .project-body { padding: 22px 24px 24px; }
+}
 
 @media (max-width: 760px) {
   .portfolio-row { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; }

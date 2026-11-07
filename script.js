@@ -134,11 +134,21 @@
   // open first; clicking outside the grid, or pressing Escape, closes it.
   var thinkCards = document.querySelectorAll(".think-card");
   if (thinkCards.length) {
+    // A closing card keeps .is-closing (still pinned, see styles.css)
+    // until its description has finished collapsing, so it never re-enters
+    // the grid while still tall and jostles its neighbors.
+    var closeThinkCard = function (c) {
+      if (!c.classList.contains("is-open")) return;
+      c.classList.remove("is-open");
+      c.classList.add("is-closing");
+      c.setAttribute("aria-expanded", "false");
+      clearTimeout(c._closeTimer);
+      c._closeTimer = setTimeout(function () {
+        c.classList.remove("is-closing");
+      }, 320);
+    };
     var closeAllThinkCards = function () {
-      thinkCards.forEach(function (c) {
-        c.classList.remove("is-open");
-        c.setAttribute("aria-expanded", "false");
-      });
+      thinkCards.forEach(closeThinkCard);
     };
     thinkCards.forEach(function (card) {
       card.setAttribute("aria-expanded", "false");
@@ -146,6 +156,8 @@
         var willOpen = !card.classList.contains("is-open");
         closeAllThinkCards();
         if (willOpen) {
+          clearTimeout(card._closeTimer);
+          card.classList.remove("is-closing");
           card.classList.add("is-open");
           card.setAttribute("aria-expanded", "true");
         }
